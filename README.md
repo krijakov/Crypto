@@ -1,12 +1,12 @@
 # Cryptocoin library - for educational purposes
 
-Writing a blockchain system from scratch, NOT MEANT FOR USE IN PRODUCTION!!!
+Writing a blockchain system from scratch, NOT MEANT FOR PRODUCTION USE!!!
 
 ## Modules so far
-* **hashing**: manual (and simple) implementation of the popular SHA-256 hashing algorithm (WIP)
+* **hashing**: manual (and simple) implementation of the SHA-256 hashing algorithm
+* **blockchain**: manual implementation of a simple blockchain system, with proof of work validation
 
 ## Planned modules
-* blockchain
 * coin
 * trading backend (optional)
 * trading frontend (optional)
