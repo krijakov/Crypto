@@ -67,7 +67,7 @@ class Transaction:
 
 class Block:
     # NOTE: add the ability to change the hashing logic (e.g. SHA-256, SHA-3, simple XOR based etc.) in the future
-    __slots__ = ("_index", "_previous_hash", "_data", "_timestamp", "_nonce", "_hash")
+    __slots__ = ("_index", "_previous_hash", "_data", "_timestamp", "_nonce", "_hash", "is_signed", "signed_by", "finalized")
     
     def __init__(
             self, 
@@ -87,6 +87,8 @@ class Block:
         self.is_signed = False
         self.signed_by = None
 
+        self.finalized = False
+
     def compute_hash(self) -> str:
         """Compute the block's hash based on its contents."""
         transaction_hashes = "".join(hex(d.hash_transaction())[2:] for d in self._data)
@@ -96,10 +98,20 @@ class Block:
     def index(self) -> int:
         return self._index
     
+    @index.setter
+    def index(self, value: int):
+        self._index = value
+        self._hash = self.compute_hash()
+    
     @property
     def previous_hash(self) -> str:
         return self._previous_hash
     
+    @previous_hash.setter
+    def previous_hash(self, value: str):
+        self._previous_hash = value
+        self._hash = self.compute_hash()
+
     @property
     def data(self) -> str:
         return self._data
@@ -130,6 +142,7 @@ class Block:
                 return None
             self.nonce += 1 # this should update the hash through the setter for nonce
             iterations += 1
+        self.finalized = True
         return self._hash
 
     # Verification:
@@ -141,7 +154,7 @@ class Block:
             :return: True if all transactions are valid, False otherwise.
         """
         for tx in self._data:
-            sender_public_key = public_keys.get(tx.sender)
-            if not sender_public_key or not tx.verify(sender_public_key):
+            signed_public_key = public_keys.get(self.signed_by)
+            if not signed_public_key or not tx.verify(signed_public_key):
                 return False
         return True
