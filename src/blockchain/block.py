@@ -133,6 +133,12 @@ class Block:
     def hash(self) -> str:
         return self._hash
     
+    def __setattr__(self, name, value):
+        raise AttributeError(f"Attribute '{name}' cannot be set directly.")
+
+    def __delattr__(self, name):
+        raise AttributeError("Cannot delete attributes from Block")
+    
     # Proof of Work:
     def mine(self, criteria: Callable[[str], bool], max_iterations: int = 1000) -> Optional[str]:
         """Perform Proof-of-Work mining until the criteria is met or max iterations is reached."""
