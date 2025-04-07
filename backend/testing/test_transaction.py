@@ -13,9 +13,10 @@ import sys
 from pathlib import Path
 parent_dir = Path.cwd().parent
 sys.path.append(str(parent_dir))
+sys.path.append(str(parent_dir / "app"))
 
-from src.digital_signature.ecc import ECC, secp256k1
-from src.blockchain.block import Transaction
+from app.blockchain.digital_signature.ecc import secp256k1
+from app.blockchain.block import Transaction
 
 @pytest.mark.parametrize("sender, receiver, amount", [
     ("Alice", "Bob", 10),

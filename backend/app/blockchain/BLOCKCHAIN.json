@@ -1,0 +1,63 @@
+{
+    "blocks": [
+        {
+            "id": 0,
+            "previous_hash": "0",
+            "hash": "61d759f67e094c55c8f2386d0571a683e0071195afdf53050f8b2549c76cfb32",
+            "timestamp": "1744038097.574308",
+            "finalized": false,
+            "nonce": 0,
+            "transactions": [],
+            "criterion": {
+                "type": "leading_zeros",
+                "difficulty": 3
+            }
+        },
+        {
+            "id": "1fd45452-11c0-482d-b307-6cc2d0401d10",
+            "previous_hash": "61d759f67e094c55c8f2386d0571a683e0071195afdf53050f8b2549c76cfb32",
+            "hash": "000f0af57cd2ec295b0089e35c8c0d17ddd0519b1593865f26b21240b40fba68",
+            "timestamp": "1744044616.879765",
+            "finalized": true,
+            "nonce": 5,
+            "transactions": [
+                {
+                    "sender": "hakmak",
+                    "receiver": "hakmak",
+                    "amount": 100,
+                    "signature": [
+                        51252951712518678603055421739236852615798431899963746910894549228160296251385,
+                        87111185780649117996124570611605783611167445616891740006911915074199775896876
+                    ]
+                }
+            ],
+            "criterion": {
+                "type": "leading_zeros",
+                "difficulty": 3
+            }
+        },
+        {
+            "id": "eed53508-2cb7-4e43-aef4-7cba515056ac",
+            "previous_hash": "000f0af57cd2ec295b0089e35c8c0d17ddd0519b1593865f26b21240b40fba68",
+            "hash": "0005976d304e703dbdbc48878f0a0f404724762f69aa588441744118d173e5a8",
+            "timestamp": "1744044734.323902",
+            "finalized": true,
+            "nonce": 2170,
+            "transactions": [
+                {
+                    "sender": "hakmak",
+                    "receiver": "hakmak",
+                    "amount": 100,
+                    "signature": [
+                        90825116758270829129968208265571667787290664525767834247999738882414872996827,
+                        79525735106755679706815233596960223492115146584855126248792157605070929101237
+                    ]
+                }
+            ],
+            "criterion": {
+                "type": "leading_zeros",
+                "difficulty": 3
+            }
+        }
+    ]
+}

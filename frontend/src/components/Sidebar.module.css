@@ -1,0 +1,17 @@
+.link {
+    padding: 1rem;
+    margin: 0.5rem;
+    background-color: #eee;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    display: block;
+    transition: 0.3s ease background-color;
+  }
+  
+  .active {
+    background-color: #f0ad4e;
+  }
+  

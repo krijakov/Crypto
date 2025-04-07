@@ -14,7 +14,7 @@ from pathlib import Path
 parent_dir = Path.cwd().parent
 sys.path.append(str(parent_dir))
 
-from src.digital_signature.ecc import ECC, secp256k1
+from app.blockchain.digital_signature.ecc import ECC, secp256k1
 
 # Official ecdsa implementation
 ecdsa_curve = curves.SECP256k1.curve

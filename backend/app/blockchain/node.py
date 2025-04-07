@@ -7,9 +7,9 @@ Node/miner in the blockchain network.
 """
 import random
 
-from src.blockchain.blockchain import Blockchain
-from src.blockchain.block import Transaction, Block
-from src.digital_signature.ecc import ECC, secp256k1
+from app.blockchain.blockchain import Blockchain
+from app.blockchain.block import Transaction, Block
+from app.blockchain.digital_signature.ecc import ECC, secp256k1
 
 
 class Node:
@@ -19,7 +19,7 @@ class Node:
 
         self.wallet = 0 # Initial balance
 
-        self._private_key = None
+        self._private_key = None # NOTE: make this private
         self._public_key = None
 
     @property
@@ -32,6 +32,33 @@ class Node:
         self._public_key = curve.scalar_multiply(self._private_key, curve.G)
         return self._public_key
     
+    # Auxiliary functions:
+    def get_balance(self) -> int:
+        """Get the balance of the node."""
+        return self.wallet
+    
+    def get_available_nodes(self, network):
+        """Get the available nodes in the network."""
+        return network.nodes.keys()
+
+    # Atomic Actions:
+
+    def submit_transaction(self, receiver: str, amount: int) -> Transaction:
+        """Submit a transaction to the network."""
+        assert amount > 0, "Transaction amount must be positive."
+        assert self.wallet >= amount, "Insufficient balance."
+        assert receiver in self.get_available_nodes(), "Receiver not available in the network."
+        transaction = Transaction(sender=self.name, receiver=receiver, amount=amount)
+        transaction.sign(self._private_key)
+        self.wallet -= amount
+        return transaction
+
+    def attempt_mining(self):
+        ...
+
+
+    # Mining/Validation:
+
     def sign_transaction(self, transaction: Transaction):
         """Sign the transaction."""
         if not self._private_key:
@@ -50,8 +77,4 @@ class Node:
         return self.blockchain.validate_chain()   
     
 
-#    def mine_block(self, block: Block, max_iterations: int = 1000 ) -> str:
-#        """Mine and add a block to the blockchain with the given data."""
-#        block = self.blockchain.add_block_PoW(block, max_iterations=max_iterations)
-#        return block
         

@@ -4,23 +4,33 @@
 
 Network of nodes/miners. 
 In this single machine implementation, there will be a central manager to reduce the complexity coming with a decentralized network (APIs, P2P communication etc.).
+This is the central engine/manager of the turn-based blockchain emulator.
 
 """
 
 from typing import Dict
-from src.blockchain.node import Node
-from src.blockchain.blockchain import Blockchain
-from src.blockchain.block import Block
+from app.blockchain.node import Node
+from app.blockchain.blockchain import Blockchain
+from app.blockchain.block import Block
 
 MINING_REWARD = 10
 
-class Network:
+class NetworkEngine:
+    # Constructors:
     def __init__(self, blockchain: Blockchain):
         self.nodes: Dict[str, Node] = {}
         self.public_keys = {}
 
         self.blockchain = blockchain
         self.criterion = blockchain.criterion
+
+        # Temporary storage for pending transactions:
+        self.pending_transactions = []
+        self.pending_blocks = []
+
+        # Control variables:
+        self.turn = 0
+        self.node_queue = [] # Queue of nodes for turn-based actions
 
     def add_node(self, name: str):
         node = Node(name=name, blockchain=self.blockchain)
@@ -32,6 +42,9 @@ class Network:
         if node:
             del self.nodes[name]
             del self.public_keys[name]
+
+    # Turn management:
+
 
     def mine_block_turn_based(self, block: Block, max_attempts_per_node: int = 500):
         """Nodes take turns trying to mine a block, if one succeeds, the they sign the block and add it to the blockchain."""

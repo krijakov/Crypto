@@ -13,7 +13,7 @@ from pathlib import Path
 parent_dir = Path.cwd().parent
 sys.path.append(str(parent_dir))
 
-from src.hashing.sha2 import SHA256
+from app.blockchain.hashing.sha2 import SHA256
 
 # ✅ Function to compare our SHA-256 against Python's hashlib
 def reference_sha256(message: str) -> str:
