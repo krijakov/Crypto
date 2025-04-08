@@ -3,13 +3,24 @@
 Writing a blockchain system from scratch, NOT MEANT FOR PRODUCTION USE!!!
 
 ## Modules so far
-* **hashing**: manual (and simple) implementation of the SHA-256 hashing algorithm
-* **blockchain**: manual implementation of a simple blockchain system, with proof of work validation (WIP)
-* **digital signature**: manual implementation of the Elliptical Curve Cryptography based digital signature algorithm.
-
-## Planned modules
-* coin
-* weak hashing method (for demonstration)
-
-## TODO/Extensions:
-* Block: make hashing method choosable
+* **backend**: python fastapi backend for validation and block organization
+    * **app**: main app logic
+        * **blockchain**: blockchain and crypto modules
+            * **digital signature**
+            * **hashing**
+            * **block**
+            * **blockchain**
+        * **engine**: game engine, handling async actions
+        * **models**: pydantic models for incoming requests
+        * configs
+        * main
+    * **testing**
+* **frontend**: React TS frontend for user actions
+    * **src**
+        * **assets**: logo
+        * **components**: React components and their css
+        * **context**: user context handler
+        * **crypto**: cryptographic utilities, mirrors the backend more or less
+        * **workers**: mining worker
+        * App.tsx
+        * index.tsx
