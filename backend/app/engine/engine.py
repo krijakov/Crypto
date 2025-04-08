@@ -7,8 +7,9 @@ Async execution engine for the queued actions.
 """
 
 import asyncio
-from typing import Dict, List, Callable, Tuple
+from typing import Dict, List, Tuple
 from logging import Logger
+import json
 
 from models.user import User
 from models.mining_criterion import MiningCriterion
@@ -60,6 +61,15 @@ class Engine:
         else:   
             self.logger.error(f"User {user.username} not found.")
 
+    def get_user(self, public_key: Tuple[int, int]) -> User:
+        """
+        Get a user by their public key.
+        """
+        for user in self.current_users.values():
+            if user.public_key == public_key:
+                return user
+        raise ValueError(f"User with public key {public_key} not found.")
+
     def verify_user(self, user: User):
         if user.username in self.current_users:
             if user.public_key == self.current_users[user.username].public_key:
@@ -68,6 +78,28 @@ class Engine:
                 raise ValueError(f"User public key missmatch!")
         else:
             raise ValueError(f"User not found, try registering.")
+        
+    def load_users(self, user_json_path: str):
+        """
+        Load users from a JSON file.
+        """
+        try:
+            with open(user_json_path, "r", encoding='utf-8') as uf:
+                users = json.load(uf)
+                for user_data in users:
+                    user = User(**user_data)
+                    self.add_user(user)
+                self.logger.info("Users loaded successfully.")
+        except Exception as e:
+            self.logger.error(f"Error loading users: {e}")
+
+    def serialize_users(self) -> str:
+        """Serialize the current users to a JSON string."""
+        try:
+            return [user.serialize() for user in self.current_users.values()]
+        except Exception as e:
+            self.logger.error(f"Error serializing users: {e}")
+            return ""
 
     def verify_signature(self, data: str, signature: Tuple[int, int], public_key: int, curve: ECC = secp256k1):
         """Verify a digital signature with the public key."""

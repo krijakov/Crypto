@@ -17,7 +17,20 @@ class User(BaseModel):
 
     public_key: Tuple[int, int]# Required for digital signature validation
 
-    wallet: int = Field(default=0.0, exclude=True)  # backend-only field
-
     class Config:
         from_attributes = True  # Enable ORM mode for compatibility with SQLAlchemy models
+
+    def serialize(self) -> dict:
+        """
+        Serialize the user object to a dictionary.
+        """
+        return {
+            "username": self.username,
+            "public_key": self.public_key,
+        }
+    
+class RegisteredUser(BaseModel):
+    """
+    Model for already registered users.
+    """
+    public_key: Tuple[int, int]

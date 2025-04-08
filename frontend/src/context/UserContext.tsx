@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useContext, useEffect, useState, Rea
 import { ECPoint } from "../crypto/ecc";
 
 // User structure:
-interface User {
+export interface User {
     username: string;
     publicKey: [string, string];
     privateKey: string;

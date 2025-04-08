@@ -15,7 +15,7 @@ from logging import Logger
 import json
 from pathlib import Path
 
-from models.user import User
+from models.user import User, RegisteredUser
 from models.actions import Action
 from models.mining_criterion import MiningCriterion
 from engine.engine import Engine
@@ -29,6 +29,8 @@ blockchain = Blockchain(criterion=engine_criterion)
 if Path(configs.BLOCKCHAIN_LOCATION).is_file():
     blockchain.load_from_json(configs.BLOCKCHAIN_LOCATION) 
 engine = Engine(blockchain, logger)
+if Path(configs.USER_LOCATION).is_file():
+    engine.load_users(configs.USER_LOCATION)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -45,6 +47,9 @@ async def lifespan(app: FastAPI):
     # Optionally persist blockchain, save state here:
     with open(configs.BLOCKCHAIN_LOCATION, "w", encoding='utf-8') as bf:
         json.dump(app.state.engine.blockchain.json_serialize(), bf, indent=4)
+
+    with open(configs.USER_LOCATION, "w", encoding='utf-8') as uf:
+        json.dump(app.state.engine.serialize_users(), uf, indent=4)
 
 # Create the app:
 app = FastAPI(lifespan=lifespan)
@@ -83,19 +88,19 @@ async def register_user(
 
 @app.post("/login")
 async def login_user(
-        user: User,
+        user: RegisteredUser,
         engine: Engine = Depends(get_engine),
         logger: Logger = Depends(get_logger)  
     ):
     """
-    Log in a user with the given username and public key.
+    Log in with user public key, return the username.
     """
     try:
-        engine.verify_user(user)
-        return {"message": "User logged in successfully", "username": user.username, "success": 1}
+        found_user = engine.get_user(user.public_key) # check if the user exists
+        return {"message": "User logged in successfully", "username": found_user.username, "success": 1}
     except Exception as e:
         logger.error(e)
-        return {"message": f"User login failed: {e}", "username": user.username, "success": 0}
+        return {"message": f"User login failed: {e}", "success": 0}
 
 # Submit an action:
 @app.post("/submit_action")
@@ -130,7 +135,6 @@ async def get_blockchain_info(engine: Engine = Depends(get_engine)):
             {   
                 "username": user.username,
                 "public_key": user.public_key,
-                "wallet": user.wallet
             } for user in engine.current_users.values()
         ],
         "pending_blocks": [

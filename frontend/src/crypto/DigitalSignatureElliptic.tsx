@@ -27,6 +27,12 @@ export const generateKeyPair = (): {
     };
 };
 
+export const getPublicFromPrivate = (privateKey: string): PublicKey => {
+    const key = ec.keyFromPrivate(BigInt(privateKey).toString(16), "hex"); // Get the private key
+    const pub = key.getPublic(); // Get the public key
+    return [pub.getX().toString(10), pub.getY().toString(10)];
+}
+
 export const signMessage = (message: string, privateKey: string): Signature => {
     const key = ec.keyFromPrivate(privateKey, "decimal"); // Get the private key
     const hash = SHA256(message).toString();

@@ -9,6 +9,7 @@ import NotFound from "./components/NotFound";
 import Sidebar from "./components/Sidebar";
 import Register from "./components/Register";
 import { UserProvider } from "./context/UserContext";
+import { Inventory } from "./components/Inventory";
 
 import styles from "./App.module.css";
 

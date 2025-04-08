@@ -1,11 +1,14 @@
 import React from "react";
+import { useUser } from "../context/UserContext";
+import { Navigate } from "react-router-dom";
 
 const Home = () => {
-    return (
-        <div style={{ padding: "2rem" }}>
-            <h1>⛏️ Blockchain Miner - Home</h1>
-        </div>
-    );
+    const { user } = useUser();
+    if (!user) {
+        return <Navigate to="/register" />;
+    } else {
+        return <Navigate to="/transactions" />;
+    }
 };
 
 export default Home;

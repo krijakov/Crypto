@@ -148,10 +148,6 @@ class MinedBlockValidation(Action):
             # Add the block to the blockchain:
             assert engine.blockchain.add_block(to_be_verified), "Block doesn't match the blockchain."
 
-            # Add reward for the miner:
-            miner = engine.current_users.get(self.action_data.miner)
-            miner.wallet += configs.MINING_REWARD
-
             # Remove the block from the pending blocks:
             engine.logger.info(f"Block {self.action_data.index} mined by {self.action_data.miner}, added to the blockchain.")
             del engine.pending_blocks[self.action_data.index]

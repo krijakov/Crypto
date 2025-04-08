@@ -1,3 +1,42 @@
 .container {
-    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+    font-family: 'Inter', sans-serif;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo {
+    height: clamp(32px, 4vw, 48px);
+    width: auto;
+    aspect-ratio: 1;
+    object-fit: contain;
+    display: block;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.userInfo {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.username {
+    background-color: #f0f0f0;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
 }

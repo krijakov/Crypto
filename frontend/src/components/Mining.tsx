@@ -15,6 +15,8 @@ import { useUser } from "../context/UserContext";
 import { Block } from "../crypto/Block";
 import { manualSign } from "../crypto/DigitalSignatureElliptic";
 
+import styles from "./Mining.module.css";
+
 // 👇 This is how you load a worker in Parcel/Vite/Webpack
 const MinerWorker = new URL("../workers/miner.worker.ts", import.meta.url);
 
@@ -119,24 +121,28 @@ const Mining = () => {
 
 
     return (
-        <div style={{ padding: "2rem" }}>
-            <h1>⛏️ Blockchain Miner - Mining</h1>
-            <p>{miningStatus}</p>
-            {pendingBlocks.length === 0 ? (
-                <p>No pending blocks available. Please check back later.</p>
-            ) : (
-                <ul>
-                    {pendingBlocks.map((block) => (
-                        <li key={block.index}>
-                            Block {block.index} – {block.data.length} txs – Difficulty:{" "}
-                            {block.criterion.difficulty}
-                            <button style={{ marginLeft: "1rem" }} onClick={() => startMining(block)} >Mine</button>
-                        </li>
-                    ))}
-                </ul>
-            )}
+        <div className={styles.container}>
+          <h1 className={styles.heading}>⛏️ Mining</h1>
+          <p className={styles.status}>{miningStatus}</p>
+    
+          {pendingBlocks.length === 0 ? (
+            <p className={styles.empty}>No pending blocks available.</p>
+          ) : (
+            <div className={styles.blockList}>
+              {pendingBlocks.map((block) => (
+                <div key={block.index} className={styles.blockCard}>
+                  <div className={styles.blockInfo}>
+                    <p><strong>Block:</strong> {block.index}</p>
+                    <p><strong>Transactions:</strong> {block.data.length}</p>
+                    <p><strong>Difficulty:</strong> {block.criterion.difficulty}</p>
+                  </div>
+                  <button className={styles.mineButton} onClick={() => startMining(block)}>Mine</button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-    );
+      );
 };
 
 

@@ -16,6 +16,7 @@ cwd = Path.cwd()
 class Configs:
     MINING_REWARD: int = 10
     BLOCKCHAIN_LOCATION: str = str(cwd / "blockchain/BLOCKCHAIN.json")
+    USER_LOCATION: str = str(cwd / "blockchain/USERS.json")
     PENDING_TRANSACTIONS: int = 1
     MINING_TYPE: str = "leading_zeros"
     MINING_DIFFICULTY: int = 3
