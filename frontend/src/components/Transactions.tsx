@@ -54,7 +54,7 @@ const Transactions = () => {
     };
     console.log(payload);
     try {
-      const res = await axios.post("http://localhost:8000/submit_action", payload);
+      const res = await axios.post("/api/submit_action", payload);
       console.log("Transaction submitted:", res.data);
       setShowConfirmation(true);
     } catch (error) {

@@ -35,7 +35,7 @@ const Mining = () => {
     // Retrieve the mining status info from the backend:
     const retrieveBlockInfo = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/info");
+            const response = await axios.get("/api/info");
             const blockInfo = response.data.pending_blocks;
             console.log("Pending blocks:", blockInfo);
             const parsed = blockInfo.map(Block.deserialize);
@@ -101,7 +101,7 @@ const Mining = () => {
                     console.log("Action payload: ", MinedBlockValidationPayload);
 
                     try {
-                        const response = await axios.post("http://localhost:8000/submit_action", MinedBlockValidationPayload);
+                        const response = await axios.post("/api/submit_action", MinedBlockValidationPayload);
                         console.log("Mined block submitted:", response.data);
                     }
                     catch (error) {

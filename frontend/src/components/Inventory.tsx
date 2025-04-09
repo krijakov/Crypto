@@ -20,7 +20,7 @@ export const Inventory = () => {
 
     const retrieveBlockchainState = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/blockchain");
+            const response = await axios.get("/api/blockchain");
             const blockchainState = response.data.blockchain;
             setBlockchainState(blockchainState);
             console.log("Blockchain state:", blockchainState);

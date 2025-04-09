@@ -27,7 +27,7 @@ const Register = () => {
                 public_key: publicKey,
             };
 
-            const res = await axios.post("http://localhost:8000/register", register_payload);
+            const res = await axios.post("/api/register", register_payload);
 
             if (res.data.success === 1) {
                 setReturnMessage(res.data.message);
@@ -53,7 +53,7 @@ const Register = () => {
             const publicKey = getPublicFromPrivate(privateKeyInput);
             const login_payload = {"public_key": publicKey};
 
-            const res = await axios.post("http://localhost:8000/login", login_payload);
+            const res = await axios.post("/api/login", login_payload);
 
             if (res.data.success === 1) {
                 setReturnMessage(res.data.message);

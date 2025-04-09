@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "test": "jest",
-    "dev": "parcel public/index.html --port 5173"
+    "dev": "parcel public/index.html --port 5173",
+    "build": "parcel build public/index.html --dist-dir build"
   },
   "keywords": [],
   "author": "",
