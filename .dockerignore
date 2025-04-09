@@ -34,5 +34,7 @@
 **/.pytest_cache/
 frontend/build/
 frontend/node_modules/
+backend/testing/
+requirements_dev.txt
 LICENSE
 README.md

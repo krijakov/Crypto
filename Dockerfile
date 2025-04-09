@@ -39,7 +39,9 @@ COPY backend/app ./backend/app
 COPY requirements.txt .
 RUN python -m pip install --upgrade pip && python -m pip install --no-cache-dir -r requirements.txt
 
-# Switch to the non-privileged user to run the application.
+# Switch to the non-privileged user to run the application 
+# and add priviledge to write to the required files.
+RUN chown -R appuser:appuser /app/backend/app/blockchain
 USER appuser
 
 # Copy built frontend from previous stage
