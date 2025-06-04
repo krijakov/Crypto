@@ -156,7 +156,7 @@ class MinedBlockValidation(Action):
             logger.error(f"Error during Mined Block Validation: {e}")
             return False
         
-action_lookup = {
-    "submit_transaction": SubmitTransaction,
-    "mined_block_validation": BlockValidationData
-}
+#action_lookup = {
+#    "submit_transaction": SubmitTransaction,
+#    "mined_block_validation": BlockValidationData
+#}

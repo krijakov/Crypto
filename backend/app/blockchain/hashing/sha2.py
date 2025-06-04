@@ -92,7 +92,7 @@ class SHA256:
             
             Sigma0 = SHA256.circular_right_rotate(a, 2) ^ SHA256.circular_right_rotate(a, 13) ^ SHA256.circular_right_rotate(a, 22)
             maj = (a & b) ^ (a & c) ^ (b & c)
-            temp2 = (Sigma0 + maj) & 0xFFFFFFFF # Ensure 32-bit int output
+            temp2 = (Sigma0 + maj) & 0xFFFFFFFF
             #NOTE: each variable is supposed to be 32 bits, which the the rotations and bitwise operations could change, so when calculating the hash values, we ensure 32 bit outputs
             
             # SHA-256 variable shifting:
