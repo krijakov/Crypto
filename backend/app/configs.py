@@ -10,7 +10,7 @@ import logging
 import sys
 from pathlib import Path
 
-cwd = Path.cwd()
+cwd = Path(__file__).parent
 
 @dataclass
 class Configs:
