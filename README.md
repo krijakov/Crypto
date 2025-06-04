@@ -7,7 +7,12 @@ How to run:
 2. docker compose build
 3. docker compose up
 
-DISCLAIMER: NOT MEANT FOR PRODUCTION USE!!!
+Potential improvements:
+* Extra UI/QoL features (logout button)
+* Cross blockchain info panel
+* ...
+
+DISCLAIMER: FOR EDUCATIONAL PURPOSES!!!
 
 ![alt text](frontend_design.png)
 
